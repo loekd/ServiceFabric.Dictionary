@@ -46,7 +46,7 @@ namespace ServiceFabric.Dictionary.IndexService
         public Task Add(string word, string meaning)
         {
             long partitionKey = PartitionAddressFromWord(word);
-            var proxy = _dictionaryServiceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(partitionKey), TargetReplicaSelector.Default, DictionaryServiceListenerSettings.RemotingListenerName);
+            var proxy = _dictionaryServiceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(partitionKey), TargetReplicaSelector.PrimaryReplica, DictionaryServiceListenerSettings.RemotingListenerName);
             return proxy.Add(word, meaning);
         }
         
@@ -54,7 +54,7 @@ namespace ServiceFabric.Dictionary.IndexService
         public Task<string> Lookup(string word)
         {
             long partitionKey = PartitionAddressFromWord(word);
-            var proxy = _dictionaryServiceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(partitionKey), TargetReplicaSelector.RandomSecondaryReplica, DictionaryServiceListenerSettings.RemotingListenerName);
+            var proxy = _dictionaryServiceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(partitionKey), TargetReplicaSelector.PrimaryReplica, DictionaryServiceListenerSettings.RemotingListenerName);
             return proxy.Lookup(word);
         }
 

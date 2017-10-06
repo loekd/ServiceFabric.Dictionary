@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.ServiceFabric.Services.Client;
+using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using ServiceFabric.Dictionary.DictionaryService;
 using ServiceFabric.Dictionary.IndexService;
@@ -58,7 +59,7 @@ namespace ServiceFabric.Dictionary.ClientApp
             LookupButton.IsEnabled = false;
             InputMeaning.Text = await Try(async () =>
             {
-                var proxy = _serviceProxyFactory.CreateServiceProxy<IIndexService>(IndexServiceUri);
+                var proxy = _serviceProxyFactory.CreateServiceProxy<IIndexService>(IndexServiceUri, ServicePartitionKey.Singleton, TargetReplicaSelector.RandomInstance);
                var meaning = await proxy.Lookup(word).ConfigureAwait(false);
                 return meaning;
             });
@@ -75,7 +76,7 @@ namespace ServiceFabric.Dictionary.ClientApp
             LookupButtonDictSvPartOne.IsEnabled = false;
             InputMeaning.Text = await Try(async () =>
             {
-                var proxy = _serviceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(1L));
+                var proxy = _serviceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(1L), TargetReplicaSelector.PrimaryReplica, DictionaryServiceListenerSettings.RemotingListenerName);
                 return await proxy.Lookup(word).ConfigureAwait(false);
             });
             LookupButtonDictSvPartOne.IsEnabled = true;
@@ -91,7 +92,7 @@ namespace ServiceFabric.Dictionary.ClientApp
             LookupButtonDictSvPartTwo.IsEnabled = false;
             InputMeaning.Text = await Try(async () =>
             {
-                var proxy = _serviceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(-1L));
+                var proxy = _serviceProxyFactory.CreateServiceProxy<IDictionaryService>(DictionaryServiceUri, new ServicePartitionKey(-1L), TargetReplicaSelector.PrimaryReplica, DictionaryServiceListenerSettings.RemotingListenerName);
                 return await proxy.Lookup(word).ConfigureAwait(false);
             });
             LookupButtonDictSvPartTwo.IsEnabled = true;
