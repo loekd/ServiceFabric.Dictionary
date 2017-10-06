@@ -1,0 +1,61 @@
+﻿<Window x:Class="ServiceFabric.Dictionary.ClientApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ServiceFabric.Dictionary.ClientApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid Margin="10">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.LayoutTransform>
+            <ScaleTransform 
+                CenterX="0" CenterY="0"
+                ScaleX="{Binding ElementName=uiScaleSlider,Path=Value}"
+                ScaleY="{Binding ElementName=uiScaleSlider,Path=Value}"
+            />
+        </Grid.LayoutTransform>
+        
+        <Label Grid.Row="0" Grid.Column="0">Word</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="InputWord" Margin="2"/>
+        <Label Grid.Row="0" Grid.Column="2" Margin="-2">Meaning</Label>
+        <TextBox Grid.Row="0" Grid.Column="3" x:Name="InputMeaning" Margin="2"/>
+
+        <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="2" Header="Using Index Service" Margin="-3"></GroupBox>
+        <Button Grid.Row="3" Grid.Column="2" Content="Add word" HorizontalAlignment="Stretch" x:Name="AddButton" Click="AddButton_Click" Margin="2" />
+        <Button Grid.Row="3" Grid.Column="3" Content="Lookup word" HorizontalAlignment="Stretch" x:Name="LookupButton" Click="LookupButton_Click" Margin="2"/>
+
+        <GroupBox Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="4" Grid.RowSpan="2" Header="Using Dictionary Service Partition 1" Margin="-3"></GroupBox>
+        <Button Grid.Row="6" Grid.Column="3" Content="Lookup word" HorizontalAlignment="Stretch" x:Name="LookupButtonDictSvPartOne" Margin="2" Click="LookupButtonDictSvPartOne_Click"/>
+
+        <GroupBox Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="4" Grid.RowSpan="2" Header="Using Dictionary Service Partition 2" Margin="-3"></GroupBox>
+        <Button Grid.Row="9" Grid.Column="3" Content="Lookup word" HorizontalAlignment="Stretch" x:Name="LookupButtonDictSvPartTwo" Margin="2" Click="LookupButtonDictSvPartTwo_Click"/>
+
+        <StatusBar Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="4">
+            <Label Content="Services loading" FontSize="8" Margin="-2,-8,0,-8" Width="200" x:Name="Status"/>
+            <Slider Width="100" Visibility="Hidden" x:Name="uiScaleSlider" ToolTip="Determines the UI scale factor." Value="1.1" Minimum="1" Maximum="2" HorizontalAlignment="Right"/>
+        </StatusBar>
+    </Grid>
+    
+</Window>
