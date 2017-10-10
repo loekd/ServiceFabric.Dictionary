@@ -35,9 +35,9 @@ namespace ServiceFabric.Dictionary.Tests
 
             //act
             await indexServiceInstance.Add(testword, testmeaning).ConfigureAwait(false);
+            var actual = await indexServiceInstance.Lookup(testword).ConfigureAwait(false);
 
             //assert
-            var actual = await indexServiceInstance.Lookup(testword).ConfigureAwait(false);
             Assert.AreEqual(testmeaning, actual);
         }
     }

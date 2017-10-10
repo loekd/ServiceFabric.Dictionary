@@ -20,9 +20,9 @@ namespace ServiceFabric.Dictionary.Tests
 
             //act
             await serviceInstance.Add(testword, testmeaning).ConfigureAwait(false);
+            var actual = await serviceInstance.Lookup(testword).ConfigureAwait(false);
 
             //assert
-            var actual = await serviceInstance.Lookup(testword).ConfigureAwait(false);
             Assert.AreEqual(testmeaning, actual);
         }
     }
