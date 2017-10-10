@@ -47,6 +47,10 @@ namespace ServiceFabric.Dictionary.ClientApp
             });
             if (ok) Status.Content = "Word added";
             AddButton.IsEnabled = true;
+
+            InputMeaning.Clear();
+            InputWord.Clear();
+
         }
 
         private async void LookupButton_Click(object sender, RoutedEventArgs e)
