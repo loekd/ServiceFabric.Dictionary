@@ -13,7 +13,7 @@ using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using ServiceFabric.Dictionary.DictionaryService;
 
-[assembly: FabricTransportServiceRemotingProvider(RemotingListener = RemotingListener.V1Listener, RemotingClient = RemotingClient.V1Client)]
+[assembly: FabricTransportServiceRemotingProvider(RemotingListener = RemotingListener.V2Listener, RemotingClient = RemotingClient.V2Client)]
 
 namespace ServiceFabric.Dictionary.IndexService
 {

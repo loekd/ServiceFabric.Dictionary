@@ -4,6 +4,7 @@ using System.Windows;
 using Microsoft.ServiceFabric.Services.Client;
 using Microsoft.ServiceFabric.Services.Communication.Client;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
+using Microsoft.ServiceFabric.Services.Remoting.V2.FabricTransport.Client;
 using ServiceFabric.Dictionary.DictionaryService;
 using ServiceFabric.Dictionary.IndexService;
 
@@ -20,7 +21,7 @@ namespace ServiceFabric.Dictionary.ClientApp
         private static readonly Uri IndexServiceUri = new Uri("fabric:/ServiceFabric.Dictionary/ServiceFabric.Dictionary.IndexService");
 
         public MainWindow()
-            : this (new ServiceProxyFactory())
+            : this (new ServiceProxyFactory(c => new FabricTransportServiceRemotingClientFactory()))
         {
         }
 
