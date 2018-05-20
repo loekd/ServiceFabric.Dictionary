@@ -260,5 +260,7 @@ paket-files/
 __pycache__/
 *.pyc
 
+*.crt
+*.key
 *.ps1
 *.pfx
