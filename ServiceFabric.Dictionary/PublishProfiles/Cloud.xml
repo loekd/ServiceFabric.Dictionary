@@ -20,6 +20,11 @@
                                     AzureActiveDirectory="true"
                                     ServerCertThumbprint="0123456789012345678901234567890123456789" />
   -->
-  <ClusterConnectionParameters ConnectionEndpoint="containerseverywhere.westeurope.cloudapp.azure.com:19000" X509Credential="true" ServerCertThumbprint="12237B97693CCBD15BAC4E2F925F3D601E16FC3D" FindType="FindByThumbprint" FindValue="12237B97693CCBD15BAC4E2F925F3D601E16FC3D" StoreLocation="CurrentUser" StoreName="My" />
+  <ClusterConnectionParameters ConnectionEndpoint="containerseverywhere.westeurope.cloudapp.azure.com:19000" 
+                               X509Credential="true" 
+                               ServerCertThumbprint="fb4b2af310850861e82b84d9eed5a443c70657d1" 
+                               FindType="FindByThumbprint" 
+                               FindValue="fb4b2af310850861e82b84d9eed5a443c70657d1" 
+                               StoreLocation="CurrentUser" StoreName="My" />
   <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
 </PublishProfile>

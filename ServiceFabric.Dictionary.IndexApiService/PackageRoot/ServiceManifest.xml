@@ -34,7 +34,7 @@
   <ConfigPackage Name="Config" Version="1.0.0" />
   <Resources>
     <Endpoints>
-      <Endpoint Name="ServiceEndpoint" Port="8000" Protocol="http" />
+      <Endpoint Name="ServiceEndpoint" Port="8080" Protocol="http" />
     </Endpoints>
   </Resources>
 </ServiceManifest>
