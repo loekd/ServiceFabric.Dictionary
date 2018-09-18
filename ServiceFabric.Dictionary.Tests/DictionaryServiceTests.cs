@@ -5,7 +5,7 @@ using ServiceFabric.Mocks;
 namespace ServiceFabric.Dictionary.Tests
 {
     /// <summary>
-    /// Tests a stateful service, by using a Mock Statemanager.
+    /// Tests a stateful service, by using a Mock State manager.
     /// </summary>
     [TestClass]
     public class DictionaryServiceTests
@@ -13,14 +13,17 @@ namespace ServiceFabric.Dictionary.Tests
         [TestMethod]
         public async Task Test_DictionaryService_Lookup()
         {
-            //arrange
-            var serviceInstance = new DictionaryService.DictionaryService(MockStatefulServiceContextFactory.Default, new MockReliableStateManager());
             const string testmeaning = "testmeaning";
             const string testword = "testword";
 
+            //arrange
+            var serviceInstance = new DictionaryService.DictionaryService(
+                MockStatefulServiceContextFactory.Default, 
+                new MockReliableStateManager());
+            
             //act
-            await serviceInstance.Add(testword, testmeaning).ConfigureAwait(false);
-            var actual = await serviceInstance.Lookup(testword).ConfigureAwait(false);
+            await serviceInstance.Add(testword, testmeaning);
+            var actual = await serviceInstance.Lookup(testword);
 
             //assert
             Assert.AreEqual(testmeaning, actual);

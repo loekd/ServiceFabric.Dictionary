@@ -1,48 +1,76 @@
 #More info about API:
 #https://docs.microsoft.com/en-us/rest/api/servicefabric/sfclient-index-backuprestore
+@host=https://containerseverywhere.westeurope.cloudapp.azure.com:19080
+
+### get all policies:
+GET {{host}}/BackupRestore/BackupPolicies?api-version=6.2-preview
 
 
-#get policies:
-GET https://containerseverywhere.westeurope.cloudapp.azure.com:19080/BackupRestore/BackupPolicies?api-version=6.2-preview
-
-#create policy:
-POST https://containerseverywhere.westeurope.cloudapp.azure.com:19080/BackupRestore/BackupPolicies/$/Create?api-version=6.2-preview
+### create new policy:
+POST {{host}}/BackupRestore/BackupPolicies/$/Create?api-version=6.2-preview
 Content-Type: application/json
 
 {
     "MaxIncrementalBackups":  20,
     "Name":  "MainBackupPolicy",
-    "Storage":  {
-                    "ConnectionString":  "DefaultEndpointsProtocol=https;AccountName=sfbackupservicedata;AccountKey=QJ/w9KoH2FnnT7tq++nJLGjqST6/BGXZDAtTfzvwvgNMLYVYfgc+xApnHppX977IHILTl9jc2pj/p4CA82Uk1g==;EndpointSuffix=core.windows.net",
-                    "ContainerName":  "backup-container",
-                    "StorageKind":  "AzureBlobStore"
-                },
-    "Schedule":  {
-                     "Interval":  "PT15M",
-                     "ScheduleKind":  "FrequencyBased"
-                 }
+    "Storage": {
+        "ConnectionString":  "DefaultEndpointsProtocol=https;AccountName=containerseverywherebckp;AccountKey===;EndpointSuffix=core.windows.net",
+        "ContainerName":  "backup-container",
+        "StorageKind":  "AzureBlobStore"
+    },
+    "Schedule": {
+        "Interval":  "PT15M",
+        "ScheduleKind":  "FrequencyBased"
+    }
 }
 
-#enable backup for service 
-POST https://containerseverywhere.westeurope.cloudapp.azure.com:19080/Applications/ServiceFabric.Dictionary/$/EnableBackup?api-version=6.2-preview
+### update existing policy:
+POST {{host}}/BackupRestore/BackupPolicies/MainBackupPolicy/$/Update?api-version=6.2-preview
+Content-Type: application/json
+
+{
+    "MaxIncrementalBackups":  20,
+    "Name":  "MainBackupPolicy",
+    "Storage": {
+        "ConnectionString":  "DefaultEndpointsProtocol=https;AccountName=containerseverywheresa;AccountKey===;EndpointSuffix=core.windows.net",
+        "ContainerName":  "backup-container",
+        "StorageKind":  "AzureBlobStore"
+    },
+    "Schedule": {
+        "Interval":  "PT15M",
+        "ScheduleKind":  "FrequencyBased"
+    }
+}
+
+
+
+
+### enable backup for service 
+POST {{host}}/Applications/ServiceFabric.Dictionary/$/EnableBackup?api-version=6.2-preview
 Content-Type: application/json
 
 {
     "BackupPolicyName":  "MainBackupPolicy"
 }
 
-#get backups for service:
-GET https://containerseverywhere.westeurope.cloudapp.azure.com:19080/Applications/ServiceFabric.Dictionary/$/GetBackups?api-version=6.2-preview
 
-#get backup info for service:
-GET https://containerseverywhere.westeurope.cloudapp.azure.com:19080/Applications/ServiceFabric.Dictionary/$/GetBackupConfigurationInfo?api-version=6.2-preview
 
-#restore backup for service partition:
-POST https://containerseverywhere.westeurope.cloudapp.azure.com:19080/Partitions/a0804b86-a7e7-4e62-8c7a-62c42e280201/$/Restore?api-version=6.2-preview
+### get backups for application:
+GET {{host}}/Applications/ServiceFabric.Dictionary/$/GetBackups?api-version=6.2-preview
+
+
+
+### get backup info for service:
+GET {{host}}/Applications/ServiceFabric.Dictionary/$/GetBackupConfigurationInfo?api-version=6.2-preview
+
+
+
+### restore backup for service partition:
+POST {{host}}/Partitions/5a23ae0e-4142-4bf9-a763-85251fa55423/$/Restore?api-version=6.2-preview
 Content-Type: application/json
 
 {    
-  "BackupId": "784db329-0018-4a99-9e68-a42c76f86ca7",
-  "BackupLocation": "ServiceFabric.Dictionary\\ServiceFabric.Dictionary.DictionaryService\\a0804b86-a7e7-4e62-8c7a-62c42e280201\\2018-05-18 12.17.50.zip"
+  "BackupId": "c088a2b6-d160-4e0b-b8a4-860183b15191",
+  "BackupLocation": "ServiceFabric.Dictionary\\ServiceFabric.Dictionary.DictionaryService\\5a23ae0e-4142-4bf9-a763-85251fa55423\\2018-09-17 07.07.16.zip"
 }
 
